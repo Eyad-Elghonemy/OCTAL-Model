@@ -1,0 +1,44 @@
+{
+  "body_type": {
+    "Sedan/Saloon": "Sedan",
+    "Sedan": "Sedan",
+    "Coupe": "Coupe",
+    "Convertible/Cabriolet": "Coupe",
+    "Hatchback/Liftback/Notchback": "Hatchback",
+    "Hatchback": "Hatchback",
+    "Wagon": "Wagon",
+    "Sport Utility Vehicle (SUV)": "SUV",
+    "Crossover Utility Vehicle (CUV)": "SUV",
+    "Multipurpose Passenger Vehicle (MPV)": "SUV",
+    "Pickup": "Pickup Truck",
+    "Van": "Minivan",
+    "Minivan": "Minivan"
+  },
+  "fuel_type": {
+    "Gasoline": "Gasoline",
+    "Flexible Fuel Vehicle (FFV)": "Gasoline",
+    "Compressed Natural Gas (CNG)": "Gasoline",
+    "Diesel": "Diesel",
+    "Electric": "Electric",
+    "Battery Electric Vehicle (BEV)": "Electric"
+  },
+  "drivetrain": {
+    "FWD/Front-Wheel Drive": "FWD",
+    "RWD/Rear-Wheel Drive": "RWD",
+    "AWD/All-Wheel Drive": "AWD",
+    "4WD/4-Wheel Drive/4x4": "AWD",
+    "AWD": "AWD",
+    "FWD": "FWD",
+    "RWD": "RWD",
+    "4x2": "FWD",
+    "4x4": "AWD"
+  },
+  "transmission": {
+    "Manual/Standard": "Manual",
+    "Manual": "Manual",
+    "Automatic": "Automatic",
+    "CVT (Continuously Variable Transmission)": "Automatic",
+    "Automated Manual Transmission (AMT)": "Automatic",
+    "Dual-Clutch Transmission (DCT)": "Automatic"
+  }
+}
