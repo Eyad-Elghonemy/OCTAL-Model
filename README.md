@@ -2,9 +2,7 @@
 
 An end-to-end machine learning project that predicts used vehicle prices from listing attributes (make, model, year, mileage, engine capacity, trim, body type, etc.). The project covers the full pipeline: data cleaning, EDA, feature engineering, model training and tuning, a production FastAPI backend (including a VIN-decoding prediction flow), and deployment to FastAPI Cloud with Supabase as a persistent operation log.
 
-**Live API:** deployed on [FastAPI Cloud](https://fastapicloud.dev)
-**Repository:** [github.com/Eyad-Elghonemy/supbase-API](https://github.com/Eyad-Elghonemy/supbase-API)
-
+**Live API:** deployed on [FastAPI Cloud](https://api-car-prediction-main-a3411d6d.fastapicloud.dev/)
 > This repository contains the **model training notebook and backend API only**. The frontend that consumes this API is maintained in a separate repository.
 
 ---
@@ -43,7 +41,7 @@ The goal of this project is to build a model that estimates a used vehicle's pri
 5. Preprocessing (scaling, ordinal/label/one-hot encoding)
 6. Model training, evaluation, and hyperparameter tuning
 7. Feature importance analysis
-8. A FastAPI backend (this repo) serving predictions from raw vehicle data **and** from a VIN alone — designed to be consumed by any external client (a separately maintained frontend, mobile app, or other service)
+8. A FastAPI backend (this repo) serving predictions from raw vehicle data **and** from a VIN alone — designed to be consumed by any external client (a separately maintained frontend)
 9. A protected operation-log endpoint backed by Supabase (a managed external database)
 10. Deployment to FastAPI Cloud
 
@@ -141,8 +139,8 @@ Evaluated on `price_log` (RMSE/MAE are in log-price units):
 
 | Model | Split | RMSE ↓ | MAE ↓ | R² ↑ | Usage |
 |---|---|---|---|---|---|
-| Linear Regression | Train | 0.7005 | 0.5508 | 0.0009 | ✅ **Used for hosting/deployment** (small, fast to load) |
-| Linear Regression | Test | 0.7002 | 0.5502 | 0.0009 | ✅ **Used for hosting/deployment** (small, fast to load) |
+| Linear Regression | Train | 0.2049 | 0.1499 | 0.9158 | ✅ **Used for hosting/deployment** (small, fast to load) |
+| Linear Regression | Test | 0.2043 | 0.1499 | 0.9159 | ✅ **Used for hosting/deployment** (small, fast to load) |
 | Random Forest (base) | Train | 0.0886 | 0.0669 | 0.9840 | 🖥️ Used locally only (not deployed) |
 | Random Forest (base) | Test | 0.1160 | 0.0872 | 0.9726 | 🖥️ Used locally only (not deployed) |
 | **Random Forest (tuned)** | **Train** | **0.0565** | **0.0430** | **0.9935** | ❌ Not used at all |
@@ -457,7 +455,7 @@ Documented here for transparency and as a reference for anyone extending this pr
 | Variable | Purpose |
 |---|---|
 | `APP_NAME` | Displayed API title (falls back to `"Cars-Prediction"`) |
-| `VERSION` | Displayed API version (falls back to `"1.0"`) |
+| `VERSION` | Displayed API version (falls back to `"1.1.1"`) |
 | `SECRET_API_KEY` | Required to access `GET /logs` via the `X-API-Key` header |
 | `SUPABASE_URL` | Base project URL (e.g. `https://xxxx.supabase.co`) — **without** `/rest/v1/` |
 | `SUPABASE_KEY` | The `anon` / `public` API key (not `service_role`) |
