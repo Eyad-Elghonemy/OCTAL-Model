@@ -15,6 +15,7 @@ An end-to-end machine learning project that predicts used vehicle prices from li
 - [Dataset](#-dataset)
 - [Modeling Journey](#-modeling-journey)
 - [Results](#-results)
+- [Diagnostic Plots](#-diagnostic-plots)
 - [Feature Importance](#-feature-importance)
 - [Which Model Is Actually Deployed](#-which-model-is-actually-deployed)
 - [Backend Architecture](#-backend-architecture)
@@ -140,8 +141,8 @@ Evaluated on `price_log` (RMSE/MAE are in log-price units):
 
 | Model | Split | RMSE ↓ | MAE ↓ | R² ↑ | Usage |
 |---|---|---|---|---|---|
-| Linear Regression | Train | 0.2049 | 0.5508 | 0.9158 | ✅ **Used for hosting/deployment** (small, fast to load) |
-| Linear Regression | Test | 0.1499 | 0.1499 | 0.9159 | ✅ **Used for hosting/deployment** (small, fast to load) |
+| Linear Regression | Train | 0.7005 | 0.5508 | 0.0009 | ✅ **Used for hosting/deployment** (small, fast to load) |
+| Linear Regression | Test | 0.7002 | 0.5502 | 0.0009 | ✅ **Used for hosting/deployment** (small, fast to load) |
 | Random Forest (base) | Train | 0.0886 | 0.0669 | 0.9840 | 🖥️ Used locally only (not deployed) |
 | Random Forest (base) | Test | 0.1160 | 0.0872 | 0.9726 | 🖥️ Used locally only (not deployed) |
 | **Random Forest (tuned)** | **Train** | **0.0565** | **0.0430** | **0.9935** | ❌ Not used at all |
@@ -181,6 +182,38 @@ Computed from the **base Random Forest** model (`forest.feature_importances_`) a
 | 17 | `fuel_type_Gasoline` | 0.0007 |
 
 **Interpretation:** `engine_capacity`, `year`, and `mileage` together drive over **87%** of the model's predictive power, while `make` adds meaningful brand-level signal. Categorical dummy variables (body type, fuel type, drivetrain, transmission) contribute comparatively little individually — this is exactly why the VIN prediction flow (below) is comfortable falling back to reasonable estimates for those fields when NHTSA doesn't provide them, while treating `make`, `model`, and `year` as non-negotiable.
+
+---
+
+## 📉 Diagnostic Plots
+
+For each model, three diagnostic plots were generated: **Actual vs. Predicted** (points should hug the red diagonal), a **Residual Plot** (residuals should scatter randomly around zero with no shape), and a **Distribution of Residuals** (should be roughly symmetric and centered on zero).
+
+> Place the corresponding image files under `assets/` using the paths referenced below.
+
+### 1. Linear Regression
+
+| Actual vs. Predicted | Residual Plot | Residual Distribution |
+|---|---|---|
+| ![LR Actual vs Predicted](assets/lr_actual_vs_predicted.png) | ![LR Residual Plot](assets/lr_residual_plot.png) | ![LR Residual Distribution](assets/lr_residual_distribution.png) |
+
+Predictions follow the diagonal reasonably well in the mid-range but drift away at both extremes, overpredicting cheap vehicles and underpredicting expensive ones. The residual plot shows a clear curved (non-random) shape rather than random scatter, and the residual distribution is visibly skewed with a long negative tail — all consistent evidence that a linear model is underfitting a genuinely non-linear relationship, and the motivation for moving to tree-based models.
+
+### 2. Random Forest (base)
+
+| Actual vs. Predicted | Residual Plot | Residual Distribution |
+|---|---|---|
+| ![RF Base Actual vs Predicted](assets/rf_base_actual_vs_predicted.png) | ![RF Base Residual Plot](assets/rf_base_residual_plot.png) | ![RF Base Residual Distribution](assets/rf_base_residual_distribution.png) |
+
+Points track the diagonal much more tightly than Linear Regression across the full price range. Residuals are centered on zero with a fairly symmetric, narrow spread and no strong systematic curvature, and the residual distribution is sharply peaked around zero — a substantially better fit than the linear baseline, consistent with the large jump in R² reported above.
+
+### 3. Random Forest (tuned)
+
+| Actual vs. Predicted | Residual Plot | Residual Distribution |
+|---|---|---|
+| ![RF Tuned Actual vs Predicted](assets/rf_tuned_actual_vs_predicted.png) | ![RF Tuned Residual Plot](assets/rf_tuned_residual_plot.png) | ![RF Tuned Residual Distribution](assets/rf_tuned_residual_distribution.png) |
+
+Visually very similar to the base Random Forest — the diagonal fit and residual spread are comparable, with a marginally tighter residual distribution. This visual similarity mirrors the [Results](#-results) table: tuning improved the test-set metrics only slightly over the base model, which is part of why the base model — not the tuned one — was judged the better trade-off (see [Why the tuned Random Forest was dropped entirely](#-results)).
 
 ---
 
@@ -389,6 +422,17 @@ Documented here for transparency and as a reference for anyone extending this pr
 │   └── notebook.ipynb           # Full EDA, preprocessing, and modeling workflow
 ├── dataset/
 │   └── vehicle_price_prediction.csv
+├── assets/
+│   ├── feature_importance.png
+│   ├── lr_actual_vs_predicted.png
+│   ├── lr_residual_plot.png
+│   ├── lr_residual_distribution.png
+│   ├── rf_base_actual_vs_predicted.png
+│   ├── rf_base_residual_plot.png
+│   ├── rf_base_residual_distribution.png
+│   ├── rf_tuned_actual_vs_predicted.png
+│   ├── rf_tuned_residual_plot.png
+│   └── rf_tuned_residual_distribution.png
 ├── models/
 │   ├── preprocessor.pkl         # Fitted ColumnTransformer
 │   └── lin_base.pkl             # Deployed model (Linear Regression)
