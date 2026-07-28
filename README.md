@@ -2,7 +2,7 @@
 
 <img src="assets/logo1.png" alt="Octal Logo" width="220"/>
 
-# 🚗 OCTAL Cars Price Evaluation
+# OCTAL Cars Price Evaluation System
 
 **The AI/backend engine behind Octal — estimating vehicle market value to support insurance underwriting, policy pricing, and claims settlement in the Egyptian market**
 
