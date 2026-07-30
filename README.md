@@ -12,7 +12,6 @@
 [![Pandas](https://img.shields.io/badge/Pandas-Data-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
 [![Pydantic](https://img.shields.io/badge/Pydantic-Validation-E92063?logo=pydantic&logoColor=white)](https://docs.pydantic.dev/)
 [![Supabase](https://img.shields.io/badge/Database-Supabase-3FCF8E?logo=supabase&logoColor=white)](https://supabase.com/)
-[![Scikit-Learn](https://img.shields.io/badge/Library-Scikit_Learn-F7931E?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 
 </div>
 
@@ -509,7 +508,7 @@ Interactive docs available at `http://127.0.0.1:8000/docs`.
 
 ## 🚀 Future Work
 
-- Wire the base Random Forest model (`forest_base.pkl`) into the deployed API in place of Linear Regression, for a substantial accuracy improvement (R² 0.97 vs. ~0)
+- Wire the base Random Forest model (`forest_base.pkl`) into the deployed API in place of Linear Regression, for a substantial accuracy improvement (R² 0.97 vs. ~0.91)
 - Re-run and persist the tuned Random Forest in a more storage-efficient format (e.g., compressed `joblib`, or reduced `n_estimators`)
 - Try target/frequency encoding for `make` and `model` instead of label encoding
 - Experiment with Gradient Boosting models (XGBoost / LightGBM / CatBoost)
