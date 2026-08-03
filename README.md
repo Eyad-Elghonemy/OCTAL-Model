@@ -22,6 +22,16 @@ An end-to-end machine learning project that predicts used vehicle prices from li
 **Live API:** deployed on [FastAPI Cloud](https://fastapicloud.dev)
 **Repository:** [github.com/Eyad-Elghonemy/supbase-API](https://github.com/Eyad-Elghonemy/supbase-API)
 
+
+> ⚠️ **Security note:** the `X-API-Key` below is a **demo key** shared for evaluation purposes only. If this repository is public, rotate the key (set a new `SECRET_KEY_TOKEN` in your Hugging Face Space secrets) so this value stops working. Never rely on a key that has appeared in a public README for anything beyond a quick demo.
+
+```
+Demo X-API-Key: c0c2d9d05029aed5d5174ff5ff8e6d88
+```
+
+---
+
+
 > This repository contains the **model training notebook and backend API only**. The frontend that consumes this API is maintained in a separate repository.
 
 ---
